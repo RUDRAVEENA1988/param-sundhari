@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Param Sundhari</title>
+  <meta name="description"
+    content="Param Sundhari is a futuristic, gentle AI-powered emotional support web application providing warmth, empathy, and positive encouragement for your difficult moments.">
+
+  <!-- Favicon icon using cosmic SVG spark -->
+  <!-- <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23130c28'/><polygon points='50,15 58,40 85,50 58,60 50,85 42,60 15,50 42,40' fill='%23a855f7'/><circle cx='50' cy='50' r='12' fill='%2338bdf8'/></svg>"> -->
+
+  <!-- Google Fonts: Orbitron (Logo/Headings), Poppins (Body/Inputs), Quicksand (Empathetic AI text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Poppins:wght@300;400;500;600&family=Quicksand:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Ambient Space Environment -->
+  <canvas id="space-canvas" aria-hidden="true"></canvas>
+  <div class="nebula nebula-purple" aria-hidden="true"></div>
+  <div class="nebula nebula-blue" aria-hidden="true"></div>
+  <div class="nebula nebula-pink" aria-hidden="true"></div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-wrapper">
+
+    <!-- Section 1: Hero -->
+    <header class="hero-section" id="hero-section">
+      <div class="hero-badge">
+        <span class="sparkle-icon">✦</span>
+        <span>Cosmic Well-Wisher</span>
+      </div>
+
+      <div class="hero-character-preview" aria-hidden="true">
+        <div class="character-halo">
+          <img src="/assets/characters/character-neutral.svg" alt="Param Sundhari Astral Companion" class="hero-avatar"
+            id="hero-avatar-img">
+        </div>
+      </div>
+
+      <h1 class="main-title">Param Sundhari</h1>
+      <p class="tagline">“A little light for your difficult moments.”</p>
+      <p class="description">
+        Tell me what's troubling you. I'll listen, understand, and share a few words of encouragement.
+      </p>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="content-container">
+
+      <!-- Section 2: Talk Card -->
+      <section class="glass-card input-card" id="talk-section" aria-labelledby="talk-heading">
+        <h2 id="talk-heading" class="sr-only">Talk to Param Sundhari</h2>
+
+        <form id="support-form" novalidate>
+          <!-- Input 1: Name -->
+          <div class="form-group">
+            <label for="user-name" class="input-label">
+              <span>What should I call you?</span>
+            </label>
+            <div class="input-wrapper">
+              <input type="text" id="user-name" name="userName" class="cosmic-input" placeholder="Enter your name"
+                autocomplete="name" required maxlength="50">
+              <div class="input-glow-bar"></div>
+            </div>
+            <div class="field-error" id="name-error" role="alert" aria-live="polite"></div>
+          </div>
+
+          <!-- Input 2: Problem -->
+          <div class="form-group">
+            <label for="user-problem" class="input-label">
+              <span>What is troubling you?</span>
+            </label>
+            <div class="input-wrapper">
+              <textarea id="user-problem" name="userProblem" class="cosmic-textarea" rows="4"
+                placeholder="Tell me what you're going through..." required maxlength="1000"></textarea>
+              <div class="input-glow-bar"></div>
+            </div>
+            <div class="field-error" id="problem-error" role="alert" aria-live="polite"></div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="action-wrapper">
+            <button type="submit" id="talk-btn" class="btn btn-primary">
+              <span class="btn-shine"></span>
+              <span class="btn-content">LIFT ME UP💕</span>
+            </button>
+          </div>
+
+          <!-- General Alert Message -->
+          <div class="general-error" id="general-error" role="alert" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <!-- Loading State Section -->
+      <section class="glass-card loading-card hidden" id="loading-section" aria-live="polite">
+        <div class="loading-pulsar">
+          <div class="pulsar-ring ring-1"></div>
+          <div class="pulsar-ring ring-2"></div>
+          <div class="loading-avatar-wrap">
+            <img src="/assets/characters/character-neutral.svg" alt="Listening companion" id="loading-avatar-img">
+          </div>
+        </div>
+        <div class="loading-status">
+          <div class="loading-star">✦</div>
+          <p class="loading-step-text" id="loading-step-text">Listening...</p>
+          <div class="loading-progress-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: AI Response -->
+      <section class="glass-card response-card hidden" id="response-section" aria-labelledby="response-title">
+        <div class="response-header">
+          <div class="response-title-badge">
+            <span class="sparkle-icon">✨</span>
+            <span id="response-title">Param Sundhari</span>
+          </div>
+          <button type="button" class="btn-refresh-inline" id="new-talk-btn" title="Reflect on something else">
+            ✦ Share Another Thought
+          </button>
+        </div>
+
+        <!-- Personalized Companion Highlight -->
+        <div class="companion-profile" id="companion-profile">
+          <div class="companion-avatar-container">
+            <img src="/assets/characters/character-neutral.svg" alt="Companion avatar" id="response-character-avatar"
+              class="companion-avatar">
+            <div class="companion-pulse-glow"></div>
+          </div>
+          <div class="companion-info">
+            <h3 class="companion-name" id="response-character-name">Nova - Astral Spark</h3>
+            <span class="companion-title-tag" id="response-character-title">Your Celestial Astral Guide</span>
+            <p class="companion-note" id="response-character-note">Peaceful celestial spark illuminating your journey
+            </p>
+          </div>
+        </div>
+
+        <!-- Emotional Response Sections -->
+        <div class="response-sections">
+          <!-- Section A: Understanding You -->
+          <article class="response-block block-understanding">
+            <div class="block-header">
+              <span class="block-icon">💫</span>
+              <h4 class="block-title">Understanding You</h4>
+            </div>
+            <p class="block-body" id="resp-understanding">
+              <!-- Dynamically populated -->
+            </p>
+          </article>
+
+          <!-- Section B: A Few Words for You -->
+          <article class="response-block block-words">
+            <div class="block-header">
+              <span class="block-icon">💜</span>
+              <h4 class="block-title">A Few Words for You</h4>
+            </div>
+            <p class="block-body" id="resp-words">
+              <!-- Dynamically populated -->
+            </p>
+          </article>
+
+          <!-- Section C: Remember This -->
+          <article class="response-block block-remember">
+            <div class="block-header">
+              <span class="block-icon">✨</span>
+              <h4 class="block-title">Remember This</h4>
+            </div>
+            <p class="block-body block-quote" id="resp-remember">
+              <!-- Dynamically populated -->
+            </p>
+          </article>
+
+          <!-- Crisis Support Banner (Displayed when needed or emergency keywords detected) -->
+          <div class="crisis-banner hidden" id="crisis-banner" role="alert">
+            <div class="crisis-icon">🛡️</div>
+            <div class="crisis-text">
+              <h5>Care & Immediate Support Available</h5>
+              <p>You don't have to carry extreme weight alone. Free, confidential support is here for you:</p>
+              <ul>
+                <li><strong>Tele-MANAS (India):</strong> Call <a href="tel:14416">14416</a> or <a
+                    href="tel:18008914416">1800 891 4416</a></li>
+                <li><strong>Vandrevala Foundation:</strong> Call <a href="tel:9999666555">+91 9999 666 555</a></li>
+                <li><strong>US & Canada:</strong> Call or text <a href="tel:988">988</a></li>
+                <li><strong>International:</strong> Contact your local emergency or medical health support.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Share Happiness -->
+        <div class="share-container" id="share-container">
+          <div class="share-divider">
+            <span></span>
+            <h4 class="share-heading">Share this moment 💜</h4>
+            <span></span>
+          </div>
+
+          <div class="share-buttons">
+            <a href="#" id="whatsapp-btn" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer"
+              aria-label="Share this message on WhatsApp">
+              <span class="btn-icon">💬</span>
+              <span>Share on WhatsApp</span>
+            </a>
+
+            <button type="button" id="copy-btn" class="btn btn-copy" aria-label="Copy supportive message to clipboard">
+              <span class="btn-icon">📋</span>
+              <span>Copy Message</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Section 5: Minimal Footer -->
+    <footer class="app-footer">
+      <p>Made with kindness, technology &amp; a little cosmic light </p>
+      <p>Specially made for Leekshitha</p>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-notification" id="toast" role="status" aria-live="polite">
+    <span class="toast-icon">✨</span>
+    <span class="toast-text" id="toast-text">Copied to clipboard ✨</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
