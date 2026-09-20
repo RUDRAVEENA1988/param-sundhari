@@ -1,0 +1,23 @@
+{
+  "name": "param-sundhari",
+  "version": "1.0.0",
+  "description": "Futuristic AI-powered emotional support web application - A little light for your difficult moments",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js"
+  },
+  "keywords": [
+    "ai",
+    "emotional-support",
+    "mental-wellness",
+    "cosmic-theme"
+  ],
+  "author": "Param Sundhari Team",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
